@@ -18,7 +18,7 @@ const commentsHandler = (request, response) => {
 
   response.setHeader('conetent-type', 'text/plain');
 
-  comments.push({ name, date, comment });
+  comments.unshift({ name, date, comment });
   storeComments(request.commentsPath, comments);
   response.send(formatComments(comments));
 
