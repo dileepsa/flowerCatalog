@@ -7,7 +7,7 @@ const fileTypes = {
   'jpeg': 'image/jpeg',
   'html': 'text/html',
   'png': 'image/jpeg',
-  'pdf': 'text/pdf'
+  'pdf': 'application/pdf'
 };
 
 const determineContentTyee = fileName => {
