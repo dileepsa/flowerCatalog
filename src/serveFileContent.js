@@ -6,7 +6,8 @@ const fileTypes = {
   'jpg': 'image/jpeg',
   'jpeg': 'image/jpeg',
   'html': 'text/html',
-  'png': 'image/jpeg'
+  'png': 'image/jpeg',
+  'pdf': 'text/pdf'
 };
 
 const determineContentTyee = fileName => {
@@ -22,7 +23,7 @@ const serveFileContent = (PATH = './public') => {
     let fileName = '';
 
     if (uri === '/') {
-      uri = '/homePage.html';
+      uri = '/html/homePage.html';
     }
 
     fileName = `${PATH}${uri}`;
