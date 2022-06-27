@@ -10,15 +10,6 @@ const handle = (handlers, PATH) => {
   }
 };
 
-// const homePageHandler = (request, response) => {
-//   const { uri } = request;
-//   if (uri === '/') {
-//     const content = fs.readFileSync('./public/homePage.html', 'utf8');
-//     response.send(content);
-//     return true;
-//   }
-// };
-
 const startServer = (PORT, handlers) => {
   const server = createServer((socket) => onConnection(socket, handlers));
   server.listen(PORT, () => console.log(`Server is listening to ${PORT}`));

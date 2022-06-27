@@ -1,0 +1,21 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.heading {
+  color: lightcoral;
+  text-align: center;
+  margin: 1em;
+}
+
+.page-wrapper {
+  display: flex;
+  gap: 1em;
+}
+
+.pouring {
+  height: 100px;
+  width: 100px;
+}
