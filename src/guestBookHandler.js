@@ -12,14 +12,16 @@ const formatComments = (comments) => {
 };
 
 const commentsHandler = (request, response) => {
-  const { comments, uri, queryParams } = request;
+  const { guestBook, uri, queryParams } = request;
   const { name, comment } = queryParams;
   const date = new Date();
 
   response.setHeader('conetent-type', 'text/plain');
+  guestBook.addComment({ name, date, comment });
 
-  comments.unshift({ name, date, comment });
+  const comments = guestBook.getComments();
   storeComments(request.commentsPath, comments);
+
   response.send(formatComments(comments));
 
   return true;

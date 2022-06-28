@@ -1,10 +1,13 @@
 **TODO**
+
 - [ ] Show the comments in one page.
 - [ ] Use template for the guestbook.
-- [ ] Make an entity for guestBook.
 - [ ] Use tables to show the comments.
+
 **DONE**
 
+- [x] Make an entity for guestBook.
+- [x] Run the server using npm.
 - [x] Fix css
 - [x] Format comments.
 - [x] When request comes with flower name redirect to that flower page.
