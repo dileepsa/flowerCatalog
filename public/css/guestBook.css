@@ -40,13 +40,12 @@ body {
   text-align: center;
 }
 
-input {
+.input {
   border-radius: 10px;
-  margin: 40px;
+  margin: 20px;
   padding: 0.5em;
 }
 
 .submit {
   text-align: center;
-
 }

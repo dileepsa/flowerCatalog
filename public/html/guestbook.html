@@ -6,13 +6,15 @@
 </head>
 
 <body>
-  <a href="/">&le;&le;</a>
-  <h1 class="heading">Guest Book</h1>
+  <div class="heading">
+    <a href="/">&le;&le;</a>
+    <h1>Guest Book</h1>
+  </div>
   <h2 class="heading black">Leave a comment</h2>
   <form action="/guestbook" method="get">
     <div class="row">
       <label for="name">Name:
-        <input type="text" name="name" required>
+        <input type="text" name="name" required class="input">
       </label>
     </div>
 
@@ -21,7 +23,7 @@
         <textarea name="comment" cols="20" rows="5" required></textarea>
       </label>
     </div>
-    <div class="submit"><input type="submit" name="submit"></div>
+    <div class="submit"><input type="submit" name="submit" class="input"></div>
   </form>
 </body>
 

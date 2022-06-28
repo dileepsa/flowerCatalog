@@ -28,3 +28,20 @@ body {
 .content {
   padding: 1em;
 }
+
+.download {
+  padding: 1em;
+}
+
+.back {
+  padding: 20px;
+  font-size: 30px;
+}
+
+.flower-image {
+  height: 600px;
+}
+
+.content>p {
+  padding: 1em;
+}

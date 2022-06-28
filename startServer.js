@@ -16,7 +16,7 @@ const getComments = (commentsPath) => {
 }
 
 const setGuestBook = (commentsPath) => {
-  const comments = getComments(commentsPath);
+  const comments = getComments(commentsPath) || [];
   return (request, response) => {
     request.comments = comments;
     request.commentsPath = commentsPath;
