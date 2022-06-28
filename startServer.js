@@ -21,6 +21,11 @@ const readFile = (path) => {
   return content;
 };
 
+const storeComments = (path,) => {
+  return (content) =>
+    fs.writeFileSync(path, JSON.stringify(content), 'utf-8');
+};
+
 const loadGuestBook = (commentsPath, templatePath) => {
   const comments = loadComments(commentsPath) || [];
   const template = readFile(templatePath);
@@ -28,7 +33,7 @@ const loadGuestBook = (commentsPath, templatePath) => {
 
   return (request, response) => {
     request.guestBook = guestBook;
-    request.commentsPath = commentsPath;
+    request.storeComments = storeComments(commentsPath);
     return false;
   }
 };

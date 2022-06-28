@@ -1,37 +1,35 @@
-const fs = require('fs');
-
-const storeComments = (path, content) => {
-  fs.writeFileSync(path, JSON.stringify(content), 'utf-8');
-};
-
-const formatComments = (comments) => {
-  return comments.map(record => {
-    const { name, comment, date } = record;
-    return [name, comment, date].join('  ');
-  }).join('\n\n');
-};
-
-const commentsHandler = (request, response) => {
-  const { guestBook, uri, queryParams } = request;
+const addCommentsHandler = (request, response) => {
+  const { guestBook, queryParams } = request;
   const { name, comment } = queryParams;
   const date = new Date();
 
-  response.setHeader('conetent-type', 'text/plain');
+
   guestBook.addComment({ name, date, comment });
-
   const comments = guestBook.getComments();
-  storeComments(request.commentsPath, comments);
+  request.storeComments(comments);
 
-  response.send(formatComments(comments));
+  response.statusCode = 302;
+  response.setHeader('location', '/guest-book');
+  response.send('');
 
+  return true;
+};
+
+const homePageHandler = (request, response) => {
+  response.setHeader('content-type', 'text/html');
+  response.send(request.guestBook.toHtml());
   return true;
 };
 
 const guestBookHandler = (request, response) => {
   const { uri } = request;
 
-  if (uri === '/guestbook') {
-    return commentsHandler(request, response);
+  if (uri === '/guest-book') {
+    return homePageHandler(request, response);
+  }
+
+  if (uri === '/add-comment') {
+    return addCommentsHandler(request, response);
   }
 
   return false;

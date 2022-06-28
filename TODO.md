@@ -1,11 +1,14 @@
 **TODO**
 
-- [ ] Show the comments in one page.
-- [ ] Use template for the guestbook.
-- [ ] Use tables to show the comments.
+- [ ] Format the table.
+- [ ] Refactor the code.
+- [ ] Parse the comments.
 
 **DONE**
 
+- [x] Use template for the guestbook.
+- [x] Use tables to show the comments.
+- [x] Show the comments in one page.
 - [x] Make an entity for guestBook.
 - [x] Run the server using npm.
 - [x] Fix css

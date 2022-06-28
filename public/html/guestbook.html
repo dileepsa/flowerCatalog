@@ -11,7 +11,9 @@
     <h1>Guest Book</h1>
   </div>
   <h2 class="heading black">Leave a comment</h2>
-  <form action="/guestbook" method="get">
+
+  <form action="/add-comment" method="get">
+
     <div class="row">
       <label for="name">Name:
         <input type="text" name="name" required class="input">
@@ -23,8 +25,22 @@
         <textarea name="comment" cols="20" rows="5" required></textarea>
       </label>
     </div>
+
     <div class="submit"><input type="submit" name="submit" class="input"></div>
   </form>
+
+  <div class="comments">
+    <table>
+      <thead>
+        <th>Name</th>
+        <th>Comment</th>
+        <th>Date</th>
+      </thead>
+      <tbody>
+        __TABLE__BODY__
+      </tbody>
+    </table>
+  </div>
 </body>
 
 </html>
