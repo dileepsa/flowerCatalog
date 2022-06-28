@@ -6,6 +6,8 @@
 
 **DONE**
 
+- [x] Move the template from public to src.
+- [x] Extract loadGuestbook into a new file.
 - [x] Use template for the guestbook.
 - [x] Use tables to show the comments.
 - [x] Show the comments in one page.

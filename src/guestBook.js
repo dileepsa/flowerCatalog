@@ -18,7 +18,7 @@ class GuestBook {
   toHtml() {
     const rows = this.#comments.map((record) => {
       const { name, date, comment } = record;
-      return `<tr><td>${name}</td><td>${comment}</td><td>${date.toString()}</td></tr>`;
+      return `<tr><td>${name}</td><td>${comment}</td><td>${date.toLocaleString()}</td></tr>`;
     });
 
     return this.#template.replace('__TABLE__BODY__', rows.join(''));
