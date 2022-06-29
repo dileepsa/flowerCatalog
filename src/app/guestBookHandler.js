@@ -10,14 +10,14 @@ const guestBookParams = (searchParams) => {
   return params;
 };
 
-const addCommentsHandler = (request, response) => {
+const addCommentHandler = (request, response) => {
   const { guestBook, url } = request;
   const { name, comment } = guestBookParams(url.searchParams);
-  const date = new Date();
+  const date = new Date().toLocaleString();
 
   guestBook.addComment({ name, date, comment });
   const comments = guestBook.getComments();
-  request.storeComments(comments);
+  guestBook.store(comments);
 
   response.statusCode = 302;
   response.setHeader('location', '/guest-book');
@@ -32,7 +32,12 @@ const homePageHandler = (request, response) => {
   return true;
 };
 
-const guestBookHandler = (request, response) => {
+const serveComments = (request, response) => {
+  response.end(JSON.stringify(request.guestBook.getComments()));
+  return true;
+};
+
+const guestBookRouter = (request, response) => {
   const { url, method } = request;
   const { pathname } = url;
 
@@ -40,11 +45,16 @@ const guestBookHandler = (request, response) => {
     return homePageHandler(request, response);
   }
 
-  if (pathname === '/add-comment' && method === 'GET') {
-    return addCommentsHandler(request, response);
+  if (pathname === '/guest-book/add-comment' && method === 'GET') {
+    return addCommentHandler(request, response);
+  }
+
+  if (pathname === '/api/get-comments') {
+    response.setHeader('content-type', 'application/json');
+    return serveComments(request, response);
   }
 
   return false;
 };
 
-module.exports = { guestBookHandler };
+module.exports = { guestBookRouter };

@@ -1,13 +1,14 @@
 **TODO**
 
-- [ ] load the gueest book before the request.
-- [ ] load the guest by checking the url.
 - [ ] Format the table.
 - [ ] Refactor the code.
 - [ ] Parse the comments.
 
 **DONE**
 
+- [x] Create api router.
+- [x] load the guest by checking the url.
+- [x] load the guest book before the request.
 - [x] make logRequest handler.
 - [x] Send the port.
 - [x] Remove html directory.
