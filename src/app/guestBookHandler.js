@@ -8,7 +8,7 @@ const guestBookParams = (searchParams) => {
   }
 
   return params;
-}
+};
 
 const addCommentsHandler = (request, response) => {
   const { guestBook, url } = request;
@@ -33,14 +33,14 @@ const homePageHandler = (request, response) => {
 };
 
 const guestBookHandler = (request, response) => {
-  const { url } = request;
+  const { url, method } = request;
   const { pathname } = url;
 
-  if (pathname === '/guest-book') {
+  if (pathname === '/guest-book' && method === 'GET') {
     return homePageHandler(request, response);
   }
 
-  if (pathname === '/add-comment') {
+  if (pathname === '/add-comment' && method === 'GET') {
     return addCommentsHandler(request, response);
   }
 

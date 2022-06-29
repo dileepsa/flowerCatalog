@@ -1,5 +1,6 @@
 **TODO**
 
+- [ ] Remove html directory.
 - [ ] Format the table.
 - [ ] Refactor the code.
 - [ ] Parse the comments.

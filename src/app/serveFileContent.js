@@ -23,7 +23,7 @@ const serveFileContent = (PATH = './public') => {
     let fileName = PATH + pathname;
 
     if (pathname === '/') {
-      fileName = PATH + '/html/homePage.html';
+      fileName = PATH + '/homePage.html';
     }
 
     if (!fs.existsSync(fileName)) {
