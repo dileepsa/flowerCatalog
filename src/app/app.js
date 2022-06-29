@@ -4,13 +4,17 @@ const { loadGuestBook } = require('./loadGuestBookHandler.js');
 const { notFoundHandler } = require('./notFoundHandler.js');
 const { createRouter } = require("../server/createRouter.js");
 
-const app = (commentsPath, filesPath) => {
-  const templatePath = './templates/guestBookTemplate.html';
+const logRequest = (req, res) => {
+  console.log(req.method, req.url.pathname);
+};
+
+const app = ({ commentsPath, filesPath, templatePath }) => {
 
   const handlers = [
+    logRequest,
     loadGuestBook(commentsPath, templatePath),
-    serveFileContent(filesPath),
     guestBookHandler,
+    serveFileContent(filesPath),
     notFoundHandler
   ];
 

@@ -1,12 +1,16 @@
 **TODO**
 
-- [ ] Remove html directory.
+- [ ] load the gueest book before the request.
+- [ ] load the guest by checking the url.
 - [ ] Format the table.
 - [ ] Refactor the code.
 - [ ] Parse the comments.
 
 **DONE**
 
+- [x] make logRequest handler.
+- [x] Send the port.
+- [x] Remove html directory.
 - [x] Send data file from outside of app.
 - [x] Create templates directory.
 - [x] Use Http , URL.
