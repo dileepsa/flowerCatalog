@@ -6,6 +6,8 @@
 
 **DONE**
 
+- [x] Send data file from outside of app.
+- [x] Create templates directory.
 - [x] Use Http , URL.
 - [x] Change the directory structure.
 - [x] Move the template from public to src.

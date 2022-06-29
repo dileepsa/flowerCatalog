@@ -3,15 +3,15 @@ const fs = require('fs');
 const path = require('path');
 
 const fileTypes = {
-  'jpg': 'image/jpeg',
-  'jpeg': 'image/jpeg',
-  'html': 'text/html',
-  'png': 'image/jpeg',
-  'pdf': 'application/pdf'
+  '.jpg': 'image/jpeg',
+  '.jpeg': 'image/jpeg',
+  '.html': 'text/html',
+  '.png': 'image/jpeg',
+  '.pdf': 'application/pdf'
 };
 
 const determineContentTyee = fileName => {
-  const extension = path.extname(fileName).slice(1);
+  const extension = path.extname(fileName);
   return fileTypes[extension] || 'text/plain';
 };
 
@@ -19,15 +19,13 @@ const serveFileContent = (PATH = './public') => {
   const fileContents = readFiles(PATH);
 
   return (request, response) => {
-    let { url } = request;
-    let { pathname } = url;
-    let fileName = '';
+    let { pathname } = request.url;
+    let fileName = PATH + pathname;
 
     if (pathname === '/') {
-      pathname = '/html/homePage.html';
+      fileName = PATH + '/html/homePage.html';
     }
 
-    fileName = PATH + pathname;
     if (!fs.existsSync(fileName)) {
       return false;
     }
