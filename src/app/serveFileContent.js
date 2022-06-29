@@ -19,21 +19,22 @@ const serveFileContent = (PATH = './public') => {
   const fileContents = readFiles(PATH);
 
   return (request, response) => {
-    let { uri } = request;
+    let { url } = request;
+    let { pathname } = url;
     let fileName = '';
 
-    if (uri === '/') {
-      uri = '/html/homePage.html';
+    if (pathname === '/') {
+      pathname = '/html/homePage.html';
     }
 
-    fileName = `${PATH}${uri}`;
+    fileName = PATH + pathname;
     if (!fs.existsSync(fileName)) {
       return false;
     }
 
     response.setHeader('content-type', determineContentTyee(fileName));
     const content = fileContents[fileName];
-    response.send(content);
+    response.end(content);
     return true;
   }
 };
