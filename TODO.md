@@ -1,11 +1,14 @@
 **TODO**
 
+- [ ] Use Http , URL.
+
 - [ ] Format the table.
 - [ ] Refactor the code.
 - [ ] Parse the comments.
 
 **DONE**
 
+- [x] Change the directory structure.
 - [x] Move the template from public to src.
 - [x] Extract loadGuestbook into a new file.
 - [x] Use template for the guestbook.

@@ -1,8 +1,8 @@
 const { createServer } = require('net');
-const { onConnection } = require('./src/server.js');
-const { serveFileContent } = require('./src/serveFileContent.js');
-const { guestBookHandler } = require('./src/guestBookHandler.js');
-const { loadGuestBook } = require('./src/loadCommentsHandler.js');
+const { onConnection } = require('./src/server/server.js');
+const { serveFileContent } = require('./src/app/serveFileContent.js');
+const { guestBookHandler } = require('./src/app/guestBookHandler.js');
+const { loadGuestBook } = require('./src/app/loadCommentsHandler.js');
 
 const handle = (handlers, PATH) => {
   return (request, response) => {
@@ -18,7 +18,7 @@ const startServer = (PORT, handlers) => {
 const main = () => {
   const PATH = process.argv[2];
   const commentsPath = './data/comments.json';
-  const templatePath = './src/guestBookTemplate.html';
+  const templatePath = './src/app/guestBookTemplate.html';
   const handlers = [
     loadGuestBook(commentsPath, templatePath),
     serveFileContent(PATH),
