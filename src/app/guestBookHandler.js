@@ -1,18 +1,6 @@
-const guestBookParams = (searchParams) => {
-  const params = {};
-  const entries = searchParams.entries();
-
-  for (const entry of entries) {
-    const [field, value] = entry;
-    params[field] = value;
-  }
-
-  return params;
-};
-
 const addCommentHandler = (request, response) => {
   const { guestBook, url } = request;
-  const { name, comment } = guestBookParams(url.searchParams);
+  const { name, comment } = url.queryParams;
   const date = new Date().toLocaleString();
 
   guestBook.addComment({ name, date, comment });

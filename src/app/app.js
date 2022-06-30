@@ -4,15 +4,13 @@ const { loadGuestBook } = require('./loadGuestBookHandler.js');
 const { notFoundHandler } = require('./notFoundHandler.js');
 const { createRouter } = require("../server/createRouter.js");
 const { apiRouter } = require('./apiHandler.js');
-
-const logRequest = (req, res) => {
-  console.log(req.method, req.url.pathname);
-};
+const { parseSearchParams, logRequest } = require('./parseSearchParamsHandler.js');
 
 const app = ({ commentsPath, filesPath, templatePath }) => {
   const injectGuestBook = loadGuestBook(commentsPath, templatePath);
 
   const handlers = [
+    parseSearchParams,
     logRequest,
     injectGuestBook,
     apiRouter,
