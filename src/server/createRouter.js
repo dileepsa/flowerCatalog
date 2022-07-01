@@ -9,4 +9,4 @@ const createRouter = (handlers) => {
   };
 };
 
-exports.createRouter = createRouter;
+module.exports = { createRouter };

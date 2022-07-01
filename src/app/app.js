@@ -5,6 +5,8 @@ const { notFoundHandler } = require('./notFoundHandler.js');
 const { createRouter } = require("../server/createRouter.js");
 const { apiRouter } = require('./apiHandler.js');
 const { parseSearchParams, logRequest } = require('./parseSearchParamsHandler.js');
+const { timeoutHandler } = require('./timeoutHandler.js');
+const { createAsyncRouter } = require('../server/createAsyncRouter.js');
 
 const app = ({ commentsPath, filesPath, templatePath }) => {
   const injectGuestBook = loadGuestBook(commentsPath, templatePath);
@@ -22,4 +24,9 @@ const app = ({ commentsPath, filesPath, templatePath }) => {
   return createRouter(handlers);
 };
 
-module.exports = { app };
+const asyncApp = () => {
+  const handlers = [timeoutHandler, notFoundHandler];
+  return createAsyncRouter(handlers);
+};
+
+module.exports = { app, asyncApp };

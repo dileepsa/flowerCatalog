@@ -1,4 +1,4 @@
-const { app } = require('./src/app/app.js');
+const { app, asyncApp } = require('./src/app/app.js');
 const { startServer } = require('./src/server/server.js');
 
 const startApp = (PORT) => {
@@ -8,7 +8,7 @@ const startApp = (PORT) => {
     templatePath: './templates/guestBookTemplate.html'
   }
 
-  startServer(PORT, app(appConfig));
+  startServer(PORT, asyncApp(appConfig));
 };
 
 startApp(8585);
