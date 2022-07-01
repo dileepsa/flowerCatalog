@@ -1,9 +1,4 @@
-const logRequest = (req, res, next) => {
-  console.log(req.method, req.url.pathname);
-  next();
-};
-
-const parseParams = (searchParams) => {
+const getEntries = (searchParams) => {
   const params = {};
   const entries = searchParams.entries();
 
@@ -16,9 +11,8 @@ const parseParams = (searchParams) => {
 
 const parseSearchParams = (req, res, next) => {
   req.url = new URL(req.url, `http://${req.headers.host}`);
-  req.url.queryParams = parseParams(req.url.searchParams);
-  req.bodyParams = parseParams(req.bodyParams);
+  req.url.queryParams = getEntries(req.url.searchParams);
   next();
 };
 
-module.exports = { parseSearchParams, logRequest };
+module.exports = { parseSearchParams, getEntries };

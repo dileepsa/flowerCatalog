@@ -1,3 +1,5 @@
+const { getEntries } = require("./parseSearchParamsHandler");
+
 const parseBodyParams = (req, res, next) => {
   if (!req.method === 'POST') {
     next();
@@ -12,7 +14,7 @@ const parseBodyParams = (req, res, next) => {
 
   req.on('end', () => {
     const bodyParams = new URLSearchParams(data);
-    req.bodyParams = bodyParams;
+    req.bodyParams = getEntries(bodyParams);
     next();
   })
 };
