@@ -5,28 +5,22 @@ const { notFoundHandler } = require('./notFoundHandler.js');
 const { createRouter } = require("../server/createRouter.js");
 const { apiRouter } = require('./apiHandler.js');
 const { parseSearchParams, logRequest } = require('./parseSearchParamsHandler.js');
-const { timeoutHandler } = require('./timeoutHandler.js');
 const { createAsyncRouter } = require('../server/createAsyncRouter.js');
+const { parseBodyParams } = require('./parseBodyParams.js');
 
-const app = ({ commentsPath, filesPath, templatePath }) => {
+const app = ({ commentsPath, templatePath, filesPath }) => {
   const injectGuestBook = loadGuestBook(commentsPath, templatePath);
 
   const handlers = [
+    parseBodyParams,
     parseSearchParams,
     logRequest,
     injectGuestBook,
-    apiRouter,
     guestBookRouter,
     serveFileContent(filesPath),
     notFoundHandler
   ];
-
-  return createRouter(handlers);
-};
-
-const asyncApp = () => {
-  const handlers = [timeoutHandler, notFoundHandler];
   return createAsyncRouter(handlers);
 };
 
-module.exports = { app, asyncApp };
+module.exports = { app };

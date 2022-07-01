@@ -1,5 +1,6 @@
-const logRequest = (req, res) => {
+const logRequest = (req, res, next) => {
   console.log(req.method, req.url.pathname);
+  next();
 };
 
 const parseParams = (searchParams) => {
@@ -13,10 +14,11 @@ const parseParams = (searchParams) => {
   return params;
 };
 
-const parseSearchParams = (req, res) => {
+const parseSearchParams = (req, res, next) => {
   req.url = new URL(req.url, `http://${req.headers.host}`);
   req.url.queryParams = parseParams(req.url.searchParams);
-  return false;
+  req.bodyParams = parseParams(req.bodyParams);
+  next();
 };
 
 module.exports = { parseSearchParams, logRequest };

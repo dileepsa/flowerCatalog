@@ -1,6 +1,6 @@
 const addCommentHandler = (request, response) => {
-  const { guestBook, url } = request;
-  const { name, comment } = url.queryParams;
+  const { guestBook, bodyParams } = request;
+  const { name, comment } = bodyParams;
   const date = new Date().toLocaleString();
 
   guestBook.addComment({ name, date, comment });
@@ -25,7 +25,7 @@ const serveComments = (request, response) => {
   return true;
 };
 
-const guestBookRouter = (request, response) => {
+const guestBookRouter = (request, response, next) => {
   const { url, method } = request;
   const { pathname } = url;
 
@@ -33,7 +33,7 @@ const guestBookRouter = (request, response) => {
     return homePageHandler(request, response);
   }
 
-  if (pathname === '/guest-book/add-comment' && method === 'GET') {
+  if (pathname === '/guest-book/add-comment' && method === 'POST') {
     return addCommentHandler(request, response);
   }
 
@@ -42,7 +42,7 @@ const guestBookRouter = (request, response) => {
     return serveComments(request, response);
   }
 
-  return false;
+  next();
 };
 
 module.exports = { guestBookRouter };

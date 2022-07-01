@@ -18,7 +18,7 @@ const determineContentTyee = fileName => {
 const serveFileContent = (PATH = './public') => {
   const fileContents = readFiles(PATH);
 
-  return (request, response) => {
+  return (request, response, next) => {
     let { pathname } = request.url;
     let fileName = PATH + pathname;
 
@@ -27,7 +27,8 @@ const serveFileContent = (PATH = './public') => {
     }
 
     if (!fs.existsSync(fileName)) {
-      return false;
+      next();
+      return;
     }
 
     response.setHeader('content-type', determineContentTyee(fileName));
