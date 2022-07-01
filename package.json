@@ -17,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/dileepsa/flowerCatalog/issues"
   },
-  "homepage": "https://github.com/dileepsa/flowerCatalog#readme"
+  "homepage": "https://github.com/dileepsa/flowerCatalog#readme",
+  "dependencies": {
+    "mime-types": "^2.1.35"
+  }
 }

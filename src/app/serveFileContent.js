@@ -1,18 +1,5 @@
 const fs = require('fs');
-const path = require('path');
-
-const fileTypes = {
-  '.jpg': 'image/jpeg',
-  '.jpeg': 'image/jpeg',
-  '.html': 'text/html',
-  '.png': 'image/jpeg',
-  '.pdf': 'application/pdf'
-};
-
-const determineContentType = fileName => {
-  const extension = path.extname(fileName);
-  return fileTypes[extension] || 'text/plain';
-};
+const { lookup } = require('mime-types');
 
 const serveFileContent = (PATH = './public') => {
 
@@ -29,7 +16,7 @@ const serveFileContent = (PATH = './public') => {
     }
 
     fs.readFile(fileName, (err, data) => {
-      response.setHeader('content-type', determineContentType(fileName));
+      response.setHeader('content-type', lookup(fileName));
       response.end(data);
     })
   }
