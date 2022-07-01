@@ -12,7 +12,7 @@ const serveCommentsByName = (req, res) => {
   return true;
 };
 
-const apiRouter = (req, res) => {
+const apiRouter = (req, res, next) => {
   const { url, method } = req;
   const { pathname, queryParams } = url;
 
@@ -25,7 +25,7 @@ const apiRouter = (req, res) => {
     res.setHeader('content-type', 'application/json');
     return serveComments(req, res);
   }
-
+  next();
 };
 
 module.exports = { apiRouter };

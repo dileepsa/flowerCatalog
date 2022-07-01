@@ -1,4 +1,3 @@
-const { readFiles } = require('./readFiles.js');
 const fs = require('fs');
 const path = require('path');
 
@@ -10,18 +9,16 @@ const fileTypes = {
   '.pdf': 'application/pdf'
 };
 
-const determineContentTyee = fileName => {
+const determineContentType = fileName => {
   const extension = path.extname(fileName);
   return fileTypes[extension] || 'text/plain';
 };
 
 const serveFileContent = (PATH = './public') => {
-  const fileContents = readFiles(PATH);
 
   return (request, response, next) => {
     let { pathname } = request.url;
     let fileName = PATH + pathname;
-
     if (pathname === '/') {
       fileName = PATH + '/homePage.html';
     }
@@ -31,10 +28,10 @@ const serveFileContent = (PATH = './public') => {
       return;
     }
 
-    response.setHeader('content-type', determineContentTyee(fileName));
-    const content = fileContents[fileName];
-    response.end(content);
-    return true;
+    fs.readFile(fileName, (err, data) => {
+      response.setHeader('content-type', determineContentType(fileName));
+      response.end(data);
+    })
   }
 };
 
