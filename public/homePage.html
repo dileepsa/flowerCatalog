@@ -3,6 +3,15 @@
 <head>
   <title>Flower Catalouge</title>
   <link rel="stylesheet" href="css/homePage.css">
+  <script>
+    const hideImage = () => {
+      const image = document.getElementById('pouring');
+      image.style.visibility = "hidden"
+      setTimeout(() => {
+        image.style.visibility = ""
+      }, 1000)
+    }
+  </script>
 </head>
 
 <body>
@@ -13,7 +22,8 @@
       <li><a href="abeliophyllum.html">Abeliophyllum</a></li>
       <li><a href="ageratum.html">Ageratum</a></li>
     </ul>
-    <img src="images/animated-flower-image-0021.gif" alt="pouringwater" class="pouring">
+    <img src="images/animated-flower-image-0021.gif" alt="pouringwater" class="pouring" id="pouring"
+      onclick="hideImage()">
     <div><a href="guest-book">Guest Book</a></div>
   </div>
 </body>
