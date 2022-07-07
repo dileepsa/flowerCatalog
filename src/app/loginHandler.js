@@ -1,9 +1,7 @@
 const loginPage = `<html>
-
 <head>
   <title>Login</title>
 </head>
-
 <body>
   <h1>Flower catalog Login</h1>
   <form action="/login" method="post">
@@ -13,7 +11,6 @@ const loginPage = `<html>
     <input type="submit" name="submit">
   </form>
 </body>
-
 </html>`;
 
 const createSession = (req, res) => {
@@ -32,10 +29,9 @@ const createLoginHandler = (sessions) => {
       return;
     }
 
-    const isSessionPresent = req.session;
-    const method = req.method;
+    const { method, session } = req;
 
-    if (method === 'GET' && !isSessionPresent) {
+    if (method === 'GET' && !session) {
       res.setHeader('content-type', 'text/html');
       res.end(loginPage);
       return;

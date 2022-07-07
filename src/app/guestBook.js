@@ -32,13 +32,15 @@ class GuestBook {
     this.#store(this.#commentsDataPath, JSON.stringify(content), 'utf8');
   }
 
-  toHtml() {
+  toHtml(username) {
     const rows = this.#comments.map((record) => {
-      const { name, date, comment } = record;
-      return `<tr><td>${name}</td><td>${comment}</td><td>${date}</td></tr>`;
+      const { username, date, comment } = record;
+      return `<tr><td>${username}</td><td>${comment}</td><td>${date}</td></tr>`;
     });
 
-    return this.#template.replace('__TABLE__BODY__', rows.join(''));
+    const nameHtml = `<div class='row'>Name:${username}</div>`
+    let table = this.#template.replace('__TABLE__BODY__', rows.join(''));
+    return table.replace('__USERNAME__', nameHtml);
   }
 };
 

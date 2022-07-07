@@ -24,7 +24,7 @@ const app = ({ commentsPath, templatePath, filesPath }) => {
     injectSession(sessions),
     createLoginHandler(sessions),
     authenticationHandler,
-    logoutHandler,
+    logoutHandler(sessions),
     injectGuestBook,
     guestBookRouter,
     serveFileContent(filesPath),

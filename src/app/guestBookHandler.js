@@ -1,9 +1,10 @@
 const addCommentHandler = (request, response) => {
-  const { guestBook, bodyParams } = request;
-  const { name, comment } = bodyParams;
+  const { guestBook, bodyParams, session } = request;
+  const { username } = session;
+  const { comment } = bodyParams;
   const date = new Date().toLocaleString();
 
-  guestBook.addComment({ name, date, comment });
+  guestBook.addComment({ username, date, comment });
   const comments = guestBook.getComments();
   guestBook.store(comments);
 
@@ -16,7 +17,7 @@ const addCommentHandler = (request, response) => {
 
 const homePageHandler = (request, response) => {
   response.setHeader('content-type', 'text/html');
-  response.end(request.guestBook.toHtml());
+  response.end(request.guestBook.toHtml(request.session.username));
   return true;
 };
 
