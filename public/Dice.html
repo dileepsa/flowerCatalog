@@ -1,0 +1,34 @@
+
+<!-- saved from url=(0054)file:///Users/sai_s_weapon/step8/js/frontend/dice.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+  <title>Dice</title>
+  <style>
+    body {
+      margin: 10em 20em;
+    }
+
+    .dice {
+      height: 100px;
+      width: 100px;
+      border: 1px solid black;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: orange;
+      color: white;
+      font-size: 35px;
+    }
+  </style>
+  <script>
+    const rotateDice = () => {
+      const dice = document.getElementById('dice');
+      dice.style.transform = "rotate(30deg)";
+    }
+  </script>
+</head>
+
+<body>
+  <div class="dice" id="dice" onclick="rotateDice()" style="transform: rotate(30deg);">1</div>
+
+
+</body></html>

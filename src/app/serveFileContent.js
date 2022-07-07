@@ -6,7 +6,7 @@ const serveFileContent = (PATH = './public') => {
   return (request, response, next) => {
     let { pathname } = request.url;
     let fileName = PATH + pathname;
-    if (pathname === '/') {
+    if (pathname === '/' && request.method === 'GET') {
       fileName = PATH + '/homePage.html';
     }
 
