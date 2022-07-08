@@ -3,14 +3,12 @@ const addCommentHandler = (request, response) => {
   const { username } = session;
   const { comment } = bodyParams;
   const date = new Date().toLocaleString();
-
-  guestBook.addComment({ username, date, comment });
+  const data = { username, date, comment };
+  guestBook.addComment(data);
   const comments = guestBook.getComments();
   guestBook.store(comments);
 
-  response.statusCode = 302;
-  response.setHeader('location', '/guest-book');
-  response.end('');
+  response.end(JSON.stringify(data));
 
   return true;
 };

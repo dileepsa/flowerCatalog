@@ -1,5 +1,6 @@
 const { app } = require('./src/app/app.js');
-const { startServer } = require('./src/server/server.js');
+const { startServer } = require('server');
+const { xhrApp } = require('./src/app/xhrApp.js');
 
 const startApp = (PORT) => {
   const appConfig = {

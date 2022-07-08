@@ -10,6 +10,7 @@ const loginPage = `<html>
     </label>
     <input type="submit" name="submit">
   </form>
+  <a href="/signup">signup</a>
 </body>
 </html>`;
 

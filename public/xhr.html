@@ -1,0 +1,28 @@
+<html>
+
+<head>
+  <title>XHR</title>
+  <script>
+    const fetchData = () => {
+      const xhr = new XMLHttpRequest();
+      xhr.addEventListener('load', () => {
+        const greet = document.createElement('div');
+        const response = JSON.parse(xhr.response);
+        greet.innerText = response.name;
+        const greetings = document.querySelector('#greetings');
+        greetings.appendChild(greet);
+      });
+
+      xhr.open("get", '/user.json');
+      xhr.send();
+    };
+  </script>
+</head>
+
+<body>
+  <h1>Hello</h1>
+  <button onclick="fetchData()">click me</button>
+  <div id="greetings"></div>
+</body>
+
+</html>

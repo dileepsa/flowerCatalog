@@ -2,7 +2,8 @@
 
 <head>
   <title>Guest Book</title>
-  <link rel="stylesheet" href="../css/guestBook.css">
+  <link rel="stylesheet" href="css/guestBook.css">
+  <script src="scripts/addComments.js"></script>
 </head>
 
 <body>
@@ -12,7 +13,7 @@
   </div>
   <h2 class="heading black">Leave a comment</h2>
 
-  <form action="/guest-book/add-comment" method="post">
+  <form id="add-comments">
     __USERNAME__
     <div class="row">
       <label for="comment">Comment:
@@ -20,17 +21,19 @@
       </label>
     </div>
 
-    <div class="submit"><input type="submit" name="submit" class="input"></div>
+    <div class="submit">
+      <button type="button" onclick="addComment()">post comment</button>
+    </div>
   </form>
 
-  <div class="comments">
+  <div class="comments-wrapper">
     <table>
       <thead>
         <th>Name</th>
         <th>Comment</th>
         <th>Date</th>
       </thead>
-      <tbody>
+      <tbody id="comments">
         __TABLE__BODY__
       </tbody>
     </table>
