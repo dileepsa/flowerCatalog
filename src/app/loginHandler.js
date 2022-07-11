@@ -7,6 +7,7 @@ const loginPage = `<html>
   <form action="/login" method="post">
     <label for="username">
       <input type="text" name="username" placeholder="Enter username">
+      <input type="password" name="password" placeholder="Enter Password">
     </label>
     <input type="submit" name="submit">
   </form>
@@ -22,6 +23,20 @@ const createSession = (req, res) => {
   return session;
 };
 
+const validateCredentials = (existingUser, userDetails) => {
+  const { username, password } = userDetails;
+  return existingUser.username === username && existingUser.password === password;
+};
+
+const validate = (users, user) => {
+  const { username } = user;
+  const existingUser = users[username];
+  if (!existingUser) {
+    return;
+  }
+  return validateCredentials(existingUser, user);
+}
+
 const createLoginHandler = (sessions) => {
   return (req, res, next) => {
     const pathname = req.url.pathname;
@@ -30,7 +45,7 @@ const createLoginHandler = (sessions) => {
       return;
     }
 
-    const { method, session } = req;
+    const { method, session, users } = req;
 
     if (method === 'GET' && !session) {
       res.setHeader('content-type', 'text/html');
@@ -39,6 +54,11 @@ const createLoginHandler = (sessions) => {
     }
 
     if (method === 'POST') {
+      if (!validate(users, req.bodyParams)) {
+        res.end('User doesn\'t exists');
+        return;
+      }
+
       const session = createSession(req, res);
       sessions[session.id] = session;
       res.setHeader('Set-cookie', `id=${session.id}`);

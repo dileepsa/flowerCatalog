@@ -1,15 +1,16 @@
+const createTd = data => {
+  const td = document.createElement('td');
+  td.innerHTML = data;
+  return td;
+}
+
 const drawComment = (commentInfo, commentsElement) => {
   const { username, date, comment } = commentInfo;
   const commentRow = document.createElement('tr');
 
-  const nameElement = document.createElement('td');
-  nameElement.innerText = username;
-
-  const commentElement = document.createElement('td');
-  commentElement.innerText = comment;
-
-  const dateElement = document.createElement('td');
-  dateElement.innerText = date;
+  const nameElement = createTd(username);
+  const commentElement = createTd(comment);
+  const dateElement = createTd(date);
 
   commentRow.appendChild(nameElement);
   commentRow.appendChild(commentElement);
@@ -26,23 +27,31 @@ const redrawComments = (comments) => {
 
 const xhrGet = (path, callBack, body = '') => {
   const xhr = new XMLHttpRequest();
-  xhr.onload = () => callBack(xhr);
+  xhr.onload = () => {
+    if (xhr.status >= 200 && xhr.status <= 299) {
+      callBack(xhr);
+    }
+    return;
+  }
+
   xhr.open('GET', path);
   xhr.send(body);
 };
 
 const xhrPost = (path, callBack, body = '') => {
   const xhr = new XMLHttpRequest();
-  xhr.onload = () => callBack(xhr);
+  xhr.onload = () => {
+    if (xhr.status >= 200 && xhr.status <= 299) {
+      callBack(xhr);
+    }
+  }
+
   xhr.open('POST', path);
   xhr.send(body);
 };
 
 const displayComments = (url) => {
   xhrGet(url, (xhr) => {
-    if (xhr.status !== 200) {
-      return;
-    }
     redrawComments(JSON.parse(xhr.response));
   })
 };
@@ -65,7 +74,6 @@ const addComment = () => {
   const body = readFormData('#add-comments');
 
   xhrPost(addCommentsUrl, (xhr) => {
-    if (xhr.status !== 201) return;
     displayComments(commentsUrl);
     resetForm('#add-comments');
   }, body.toString());
