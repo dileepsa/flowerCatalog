@@ -8,7 +8,8 @@ const addCommentHandler = (request, response) => {
   const comments = guestBook.getComments();
   guestBook.store(comments);
 
-  response.end(JSON.stringify(data));
+  response.statusCode = 201;
+  response.end();
 
   return true;
 };

@@ -1,6 +1,5 @@
-const displayComments = (comments) => {
-  const { username, date, comment } = comments;
-  const commentsElement = document.querySelector('#comments');
+const drawComment = (commentInfo, commentsElement) => {
+  const { username, date, comment } = commentInfo;
   const commentRow = document.createElement('tr');
 
   const nameElement = document.createElement('td');
@@ -15,22 +14,61 @@ const displayComments = (comments) => {
   commentRow.appendChild(nameElement);
   commentRow.appendChild(commentElement);
   commentRow.appendChild(dateElement);
-  commentsElement.prepend(commentRow);
+  commentsElement.appendChild(commentRow);
   return;
 };
 
-const addComment = () => {
+const redrawComments = (comments) => {
+  const commentsElement = document.querySelector('#comments');
+  commentsElement.innerHTML = null;
+  comments.forEach((commentInfo) => drawComment(commentInfo, commentsElement));
+};
+
+const xhrGet = (path, callBack, body = '') => {
   const xhr = new XMLHttpRequest();
-  const form = document.querySelector('#add-comments');
+  xhr.onload = () => callBack(xhr);
+  xhr.open('GET', path);
+  xhr.send(body);
+};
+
+const xhrPost = (path, callBack, body = '') => {
+  const xhr = new XMLHttpRequest();
+  xhr.onload = () => callBack(xhr);
+  xhr.open('POST', path);
+  xhr.send(body);
+};
+
+const displayComments = (url) => {
+  xhrGet(url, (xhr) => {
+    if (xhr.status !== 200) {
+      return;
+    }
+    redrawComments(JSON.parse(xhr.response));
+  })
+};
+
+const resetForm = (selector) => {
+  const form = document.querySelector(selector);
+  form.reset()
+};
+
+const readFormData = (selector) => {
+  const form = document.querySelector(selector);
   const formData = new FormData(form);
   const body = new URLSearchParams(formData);
+  return body;
+};
 
-  xhr.onload = () => {
-    displayComments(JSON.parse(xhr.response));
-    form.reset();
-  };
+const addComment = () => {
+  const commentsUrl = '/api/get-comments';
+  const addCommentsUrl = '/guest-book/add-comment';
+  const body = readFormData('#add-comments');
 
-  xhr.open('POST', '/guest-book/add-comment');
-  xhr.send(body.toString());
+  xhrPost(addCommentsUrl, (xhr) => {
+    if (xhr.status !== 201) return;
+    displayComments(commentsUrl);
+    resetForm('#add-comments');
+  }, body.toString());
+
   return;
-}
+};
