@@ -1,14 +1,12 @@
 class GuestBook {
   #commentsDataPath;
-  #templatePath;
   #load;
   #store;
   #comments;
   #template;
 
-  constructor(commentsDataPath, templatePath, load, store) {
+  constructor(commentsDataPath, load, store) {
     this.#commentsDataPath = commentsDataPath;
-    this.#templatePath = templatePath;
     this.#load = load;
     this.#store = store;
     this.#comments = [];
@@ -25,7 +23,7 @@ class GuestBook {
 
   load() {
     this.#comments = JSON.parse(this.#load(this.#commentsDataPath, 'utf8'));
-    this.#template = this.#load(this.#templatePath, 'utf-8');
+    this.#template = this.#load('./templates/guestBook.html', 'utf-8');
   }
 
   store(content) {

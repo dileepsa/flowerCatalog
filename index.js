@@ -6,7 +6,6 @@ const startApp = (PORT) => {
   const appConfig = {
     commentsPath: process.argv[2] || './data/comments.json',
     filesPath: './public',
-    templatePath: './templates/guestBookTemplate.html',
     usersPath: './data/users.json'
   }
 

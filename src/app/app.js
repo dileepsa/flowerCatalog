@@ -15,8 +15,8 @@ const { createSignUpHandler } = require('./signupHandler.js');
 const { apiRouter } = require('./apiHandler.js');
 const { loadUsers } = require('./loadUsers.js');
 
-const createApp = ({ commentsPath = '', templatePath = '', filesPath = './public', usersPath = '' }, sessions = {}) => {
-  const injectGuestBook = loadGuestBook(commentsPath, templatePath);
+const createApp = ({ commentsPath = '', filesPath = './public', usersPath = '' }, sessions = {}) => {
+  const injectGuestBook = loadGuestBook(commentsPath);
 
   const handlers = [
     parseSearchParams,

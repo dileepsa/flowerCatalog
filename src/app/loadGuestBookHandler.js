@@ -1,8 +1,8 @@
 const { GuestBook } = require('./guestBook.js');
 const fs = require('fs');
 
-const loadGuestBook = (commentsPath, templatePath) => {
-  const guestBook = new GuestBook(commentsPath, templatePath, fs.readFileSync, fs.writeFileSync);
+const loadGuestBook = (commentsPath) => {
+  const guestBook = new GuestBook(commentsPath, fs.readFileSync, fs.writeFileSync);
 
   return (request, response, next) => {
     const pathname = request.url.pathname;
