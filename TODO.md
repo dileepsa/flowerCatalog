@@ -4,6 +4,10 @@
 - [ ] Refactor the code.
 - [ ] Parse the comments.
 
+**CONSIDER**
+
+- [ ] Templates module which has all the templates loaded into memory and can apply the template on to placeholders and give back the html.
+
 **DONE**
 
 - [x] Create api router.
