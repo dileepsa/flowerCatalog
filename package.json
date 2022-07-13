@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha",
     "start": "node index.js"
   },
   "repository": {
@@ -21,5 +21,9 @@
   "dependencies": {
     "mime-types": "^2.1.35",
     "server": "github:dileepsa/server"
+  },
+  "devDependencies": {
+    "mocha": "^10.0.0",
+    "supertest": "^6.2.4"
   }
 }

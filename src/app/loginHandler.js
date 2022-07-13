@@ -55,6 +55,7 @@ const createLoginHandler = (sessions) => {
 
     if (method === 'POST') {
       if (!validate(users, req.bodyParams)) {
+        res.statusCode = 404;
         res.end('User doesn\'t exists');
         return;
       }

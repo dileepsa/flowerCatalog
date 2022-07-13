@@ -13,31 +13,15 @@ const { authenticationHandler } = require('./authenticationHandler.js');
 const { logoutHandler } = require('./logoutHandler.js');
 const { createSignUpHandler } = require('./signupHandler.js');
 const { apiRouter } = require('./apiHandler.js');
-const fs = require('fs');
+const { loadUsers } = require('./loadUsers.js');
 
-const storeUsers = (path, users) => {
-  fs.writeFileSync(path, JSON.stringify(users), 'utf-8');
-};
-
-const loadUsers = (path) => {
-  return (req, res, next) => {
-    const { pathname } = req.url;
-    if (pathname === '/login' || pathname === '/signup') {
-      const users = fs.readFileSync(path, 'utf-8');
-      req.users = JSON.parse(users);
-      req.storeUsers = (users) => storeUsers(path, users);
-    }
-    next();
-  }
-};
-
-const app = ({ commentsPath, templatePath, filesPath, usersPath }) => {
+const createApp = ({ commentsPath = '', templatePath = '', filesPath = './public', usersPath = '' }) => {
   const injectGuestBook = loadGuestBook(commentsPath, templatePath);
   const sessions = {};
   const users = {};
 
   const handlers = [
-    logRequest,
+    // logRequest,
     parseSearchParams,
     parseBodyParams,
     loadUsers(usersPath),
@@ -54,6 +38,6 @@ const app = ({ commentsPath, templatePath, filesPath, usersPath }) => {
     notFoundHandler
   ];
   return createAsyncRouter(handlers);
-}
+};
 
-module.exports = { app };
+module.exports = { createApp };

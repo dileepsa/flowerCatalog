@@ -1,4 +1,4 @@
-const { app } = require('./src/app/app.js');
+const { createApp } = require('./src/app/app.js');
 const { startServer } = require('server');
 const { xhrApp } = require('./src/app/xhrApp.js');
 
@@ -10,7 +10,7 @@ const startApp = (PORT) => {
     usersPath: './data/users.json'
   }
 
-  startServer(PORT, app(appConfig));
+  startServer(PORT, createApp(appConfig));
 };
 
 startApp(8585);
