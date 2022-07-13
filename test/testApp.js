@@ -1,6 +1,15 @@
 const request = require("supertest");
 const { createApp } = require("../src/app/app");
 
+describe('get /badurl', () => {
+  it('Should send 404', (done) => {
+    request(createApp({}))
+      .get('/badurl')
+      .expect('Not found')
+      .expect(404, done)
+  });
+});
+
 describe('get /', () => {
   it('Should redirect to homepage', (done) => {
     request(createApp({}))

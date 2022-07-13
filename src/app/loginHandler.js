@@ -49,8 +49,7 @@ const createLoginHandler = (sessions) => {
       res.setHeader('Set-cookie', `id=${session.id}`);
     }
 
-    res.statusCode = 302;
-    res.setHeader('Location', '/guest-book');
+    res.statusCode = 200;
     res.end();
     return;
   };

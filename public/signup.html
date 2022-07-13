@@ -2,16 +2,21 @@
 
 <head>
   <title>Signup</title>
+  <script src="scripts/formUtils.js"></script>
+  <script src="scripts/xhrUtils.js"></script>
+  <script src="scripts/signup.js"></script>
 </head>
 
 <body>
-  <h1>Signup</h1>
-  <form action="/signup" method="post">
-    <input type="text" name="username" placeholder="Enter your name">
-    <input type="password" name="password" placeholder="Enter your password">
-    <input type="submit" name="signup">
-  </form>
-  <a href="/login">Login</a>
+  <div id="page-wrapper">
+    <h1>Signup</h1>
+    <form id="signup-form">
+      <input type="text" name="username" placeholder="Enter your name">
+      <input type="password" name="password" placeholder="Enter your password">
+      <button type="button" onclick="registerUser()">Signup</button>
+    </form>
+    <a href="/login">Login</a>
+  </div>
 </body>
 
 </html>

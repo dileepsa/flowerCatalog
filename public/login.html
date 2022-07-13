@@ -2,18 +2,23 @@
 
 <head>
   <title>Login</title>
+  <script src="scripts/xhrUtils.js"></script>
+  <script src="scripts/formUtils.js"></script>
+  <script src="scripts/login.js"></script>
 </head>
 
 <body>
-  <h1>Flower catalog Login</h1>
-  <form action="/login" method="post">
-    <label for="username">
-      <input type="text" name="username" placeholder="Enter username">
-      <input type="password" name="password" placeholder="Enter password">
-    </label>
-    <input type="submit" name="submit">
-  </form>
-  <a href="/signup">Signup</a>
+  <div id="page-wrapper">
+    <h1>Flower catalog Login</h1>
+    <form id="login-form">
+      <label for="username">
+        <input type="text" name="username" placeholder="Enter username">
+        <input type="password" name="password" placeholder="Enter password">
+      </label>
+      <button type="button" onclick="validateLogin()">Login</button>
+    </form>
+    <a href="/signup">Signup</a>
+  </div>
 </body>
 
 </html>

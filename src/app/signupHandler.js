@@ -18,8 +18,7 @@ const createSignUpHandler = (req, res, next) => {
     const { username, password } = bodyParams;
     users[username] = { username, password };
     req.storeUsers(users);
-    res.statusCode = 302;
-    res.setHeader('Location', '/login');
+    res.statusCode = 201;
     res.end();
     return;
   }

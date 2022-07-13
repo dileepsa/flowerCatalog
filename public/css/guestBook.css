@@ -55,3 +55,7 @@ body {
   margin: 1em;
   padding: 1em;
 }
+
+.comments-wrapper tr td {
+  padding: 0.5em;
+}
