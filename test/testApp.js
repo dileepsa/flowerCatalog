@@ -2,7 +2,7 @@ const request = require("supertest");
 const { createApp } = require("../src/app/app");
 
 describe('get /', () => {
-  it('Should redirect to homepage when path is  get /', (done) => {
+  it('Should redirect to homepage', (done) => {
     request(createApp({}))
       .get('/')
       .expect(200)
@@ -12,7 +12,7 @@ describe('get /', () => {
 });
 
 describe('get /login', () => {
-  it('Should serve login page when the request is get /login', (done) => {
+  it('Should respond with login page', (done) => {
     request(createApp({ usersPath: 'test/data/users.json' }))
       .get('/login')
       .expect(302, done)
@@ -25,11 +25,11 @@ describe('post /login', () => {
     request(createApp({ usersPath: 'test/data/users.json' }))
       .post('/login')
       .send('username=babu&password=raju')
-      .expect(404)
+      .expect(401)
       .expect('User doesn\'t exists', done)
   });
 
-  it('Should redirect to homepage when user is present', (done) => {
+  it('Should redirect to homepage when user exists', (done) => {
     request(createApp({ usersPath: 'test/data/users.json' }))
       .post('/login')
       .send('username=deepu&password=deepu')
@@ -40,12 +40,11 @@ describe('post /login', () => {
 });
 
 describe('get /signup', () => {
-  it('Should serve signup page when request is get /signup ', (done) => {
+  it('Should respond with signup page', (done) => {
     request(createApp({ usersPath: 'test/data/users.json' }))
       .get('/signup')
-      .expect('content-type', /html/)
-      .expect(/Signup/)
-      .expect(200, done)
+      .expect('location', '/signup.html')
+      .expect(302, done)
   });
 });
 
@@ -60,7 +59,7 @@ describe('post /signup', () => {
 });
 
 describe('get /logout', () => {
-  it('Should remove session and cookie when request is /logout', (done) => {
+  it('Should remove session and cookie', (done) => {
     const sessions = { "2": { id: 2, username: 'babu' } };
     const config = {
       usersPath: 'test/data/users.json',
@@ -94,6 +93,23 @@ describe('get /api/get-comments', () => {
   });
 });
 
+describe('get /guest-book', () => {
+  it('Should redirect to login page when the user is not logged in', (done) => {
+    request(createApp({ commentsPath: 'test/data/comments.json' }))
+      .get('/guest-book/')
+      .expect('location', '/login')
+      .expect(302, done)
+  });
+
+  it('Should show guest book page', (done) => {
+    const sessions = { '123': { username: 'dileep' } }
+    request(createApp({ commentsPath: 'test/data/comments.json' }, sessions))
+      .get('/guest-book')
+      .set('Cookie', 'id=123')
+      .expect(200, done)
+  });
+});
+
 describe('post /guest-book/add-comment', () => {
   it('Should add comment when user is authorized', (done) => {
     const sessions = { '123': { username: 'dileep' } }
@@ -102,13 +118,5 @@ describe('post /guest-book/add-comment', () => {
       .send('comment=hello')
       .set('Cookie', 'id=123')
       .expect(201, done)
-  });
-
-  it('Should redirect to login page when the user is not logged in', (done) => {
-    request(createApp({ commentsPath: 'test/data/comments.json' }))
-      .post('/guest-book/add-comment')
-      .send('comment=hello')
-      .expect('location', '/login')
-      .expect(302, done)
   });
 });
