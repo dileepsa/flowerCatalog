@@ -6,10 +6,10 @@ const storeUsers = (path, users) => {
 
 const loadUsers = (path) => {
   return (req, res, next) => {
-    const { pathname } = req.url;
-    if (pathname === '/login' || pathname === '/signup') {
+    const { url } = req;
+    if (url === '/login' || url === '/signup') {
       const users = fs.readFileSync(path, 'utf-8');
-      req.users = JSON.parse(users);
+      req.users = JSON.parse(users) || {};
       req.storeUsers = (users) => storeUsers(path, users);
     }
     next();

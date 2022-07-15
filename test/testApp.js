@@ -1,12 +1,12 @@
 const request = require("supertest");
-const { createApp } = require("../src/app/app");
+const { createApp } = require("../src/app/fcApp.js");
 
 describe('get /badurl', () => {
   it('Should send 404', (done) => {
     request(createApp({}))
       .get('/badurl')
-      .expect('Not found')
       .expect(404, done)
+      .expect(/badurl/)
   });
 });
 
@@ -29,25 +29,6 @@ describe('get /login', () => {
   });
 });
 
-describe('post /login', () => {
-  it('Should give 404 when user doesnt exists', (done) => {
-    request(createApp({ usersPath: 'test/data/users.json' }))
-      .post('/login')
-      .send('username=babu&password=raju')
-      .expect(401)
-      .expect('User doesn\'t exists', done)
-  });
-
-  it('Should redirect to homepage when user exists', (done) => {
-    request(createApp({ usersPath: 'test/data/users.json' }))
-      .post('/login')
-      .send('username=deepu&password=deepu')
-      .expect('location', '/guest-book')
-      .expect('set-cookie', /id/)
-      .expect(302, done)
-  });
-});
-
 describe('get /signup', () => {
   it('Should respond with signup page', (done) => {
     request(createApp({ usersPath: 'test/data/users.json' }))
@@ -61,9 +42,26 @@ describe('post /signup', () => {
   it('Should redirect to login page after signing up ', (done) => {
     request(createApp({ usersPath: 'test/data/users.json' }))
       .post('/signup')
+      .send('username=babu&password=babu')
+      .expect(201, done)
+  });
+});
+
+describe('post /login', () => {
+  it('Should give 401 when user doesnt exists', (done) => {
+    request(createApp({ usersPath: 'test/data/users.json' }))
+      .post('/login')
       .send('username=babu&password=tata')
-      .expect('location', '/login')
-      .expect(302, done)
+      .expect(401)
+      .expect('User doesn\'t exists', done)
+  });
+
+  it('Should redirect to homepage when user exists', (done) => {
+    request(createApp({ usersPath: 'test/data/users.json' }))
+      .post('/login')
+      .send('username=babu&password=babu')
+      .expect('set-cookie', /id/)
+      .expect(200, done)
   });
 });
 

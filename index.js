@@ -1,6 +1,4 @@
-const { createApp } = require('./src/app/app.js');
-const { startServer } = require('server');
-const { xhrApp } = require('./src/app/xhrApp.js');
+const { createApp } = require('./src/app/fcApp.js');
 
 const startApp = (PORT) => {
   const appConfig = {
@@ -9,7 +7,8 @@ const startApp = (PORT) => {
     usersPath: './data/users.json'
   }
 
-  startServer(PORT, createApp(appConfig));
+  const app = createApp(appConfig);
+  app.listen(PORT, () => console.log(`listening to ${PORT}`));
 };
 
 startApp(8585);

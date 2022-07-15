@@ -19,7 +19,7 @@ const createApp = ({ commentsPath = '', filesPath = './public', usersPath = '' }
   const injectGuestBook = loadGuestBook(commentsPath);
 
   const handlers = [
-    logRequest,
+    // logRequest,
     parseSearchParams,
     parseBodyParams,
     loadUsers(usersPath),

@@ -1,3 +1,5 @@
+const px = (text) => text + 'px';
+
 const onSuccessfullLogin = () => {
   const url = '/guest-book';
   window.location.href = url;
@@ -5,7 +7,9 @@ const onSuccessfullLogin = () => {
 
 const onLoginFailure = () => {
   const status = document.createElement('div');
-  status.innerText = 'User credentials are invalid';
+  status.innerText = 'Please Register to Login';
+  status.style.color = 'blue';
+  status.style.fontSize = px(28);
   const pageWrapper = document.querySelector('#page-wrapper');
   pageWrapper.appendChild(status);
 };
@@ -13,5 +17,5 @@ const onLoginFailure = () => {
 const validateLogin = () => {
   const url = '/login';
   const body = readFormData('#login-form');
-  xhrPost(url, onSuccessfullLogin, onLoginFailure, body.toString());
+  xhrPost(url, onSuccessfullLogin, onLoginFailure, body.toString(), 'form');
 }

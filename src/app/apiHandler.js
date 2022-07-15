@@ -13,15 +13,14 @@ const serveCommentsByName = (req, res) => {
 };
 
 const apiRouter = (req, res, next) => {
-  const { url, method } = req;
-  const { pathname, queryParams } = url;
+  const { url, query } = req;
 
-  if (pathname === '/api/get-comments' && queryParams.name) {
+  if (url === '/api/get-comments' && query.name) {
     res.setHeader('content-type', 'application/json');
     return serveCommentsByName(req, res);
   }
 
-  if (pathname === '/api/get-comments') {
+  if (url === '/api/get-comments') {
     res.setHeader('content-type', 'application/json');
     return serveComments(req, res);
   }

@@ -12,10 +12,15 @@ const xhrGet = (path, onSucces, onFailure, body = '') => {
   xhr.send(body);
 };
 
-const xhrPost = (path, onSuccess, onFailure, body = '') => {
+const xhrPost = (path, onSuccess, onFailure, body = '', type = 'form') => {
+  const types = {
+    'form': "application/x-www-form-urlencoded",
+    'text': 'text/plain',
+    'html': 'text/html'
+  }
+
   const xhr = new XMLHttpRequest();
   xhr.onload = () => {
-    console.log('xhr status', xhr.status);
     if (xhr.status >= 200 && xhr.status <= 299) {
       onSuccess(xhr);
       return;
@@ -24,5 +29,6 @@ const xhrPost = (path, onSuccess, onFailure, body = '') => {
   }
 
   xhr.open('POST', path);
+  xhr.setRequestHeader('content-type', types[type]);
   xhr.send(body);
 };

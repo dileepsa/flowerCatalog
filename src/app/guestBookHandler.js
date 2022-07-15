@@ -1,7 +1,7 @@
 const addCommentHandler = (request, response) => {
-  const { guestBook, bodyParams, session } = request;
+  const { guestBook, body, session } = request;
   const { username } = session;
-  const { comment } = bodyParams;
+  const { comment } = body;
   const date = new Date().toLocaleString();
   const data = { username, date, comment };
   guestBook.addComment(data);
@@ -27,17 +27,16 @@ const serveComments = (request, response) => {
 
 const guestBookRouter = (request, response, next) => {
   const { url, method } = request;
-  const { pathname } = url;
 
-  if (pathname === '/guest-book' && method === 'GET') {
+  if (url === '/guest-book' && method === 'GET') {
     return homePageHandler(request, response);
   }
 
-  if (pathname === '/guest-book/add-comment' && method === 'POST') {
+  if (url === '/guest-book/add-comment' && method === 'POST') {
     return addCommentHandler(request, response);
   }
 
-  if (pathname === '/api/get-comments') {
+  if (url === '/api/get-comments') {
     response.setHeader('content-type', 'application/json');
     return serveComments(request, response);
   }
