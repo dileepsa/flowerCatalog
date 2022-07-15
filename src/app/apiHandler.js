@@ -5,26 +5,11 @@ const serveComments = (req, res) => {
 
 const serveCommentsByName = (req, res) => {
   const guestBook = req.guestBook.getComments();
-  const name = req.url.queryParams.name;
+  const { username } = req.params;
+  const comments = guestBook.filter(record => record.username === username);
 
-  const comments = guestBook.filter(record => record.name === name);
-  res.end(JSON.stringify(comments));
+  res.json(comments);
   return true;
 };
 
-const apiRouter = (req, res, next) => {
-  const { url, query } = req;
-
-  if (url === '/api/get-comments' && query.name) {
-    res.setHeader('content-type', 'application/json');
-    return serveCommentsByName(req, res);
-  }
-
-  if (url === '/api/get-comments') {
-    res.setHeader('content-type', 'application/json');
-    return serveComments(req, res);
-  }
-  next();
-};
-
-module.exports = { apiRouter };
+module.exports = { serveComments, serveCommentsByName };

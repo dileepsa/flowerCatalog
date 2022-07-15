@@ -25,23 +25,4 @@ const serveComments = (request, response) => {
   return true;
 };
 
-const guestBookRouter = (request, response, next) => {
-  const { url, method } = request;
-
-  if (url === '/guest-book' && method === 'GET') {
-    return homePageHandler(request, response);
-  }
-
-  if (url === '/guest-book/add-comment' && method === 'POST') {
-    return addCommentHandler(request, response);
-  }
-
-  if (url === '/api/get-comments') {
-    response.setHeader('content-type', 'application/json');
-    return serveComments(request, response);
-  }
-
-  next();
-};
-
-module.exports = { guestBookRouter };
+module.exports = { addCommentHandler, homePageHandler };
